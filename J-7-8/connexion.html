@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Connexion</title>
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1>Connexion</h1>
+    <form id="formConnexion" onsubmit="return validerConnexion()">
+        <div class="form-group">
+            <label for="email">Email *</label>
+            <input id="email" placeholder="exemple@mail.com" type="email">
+            <small class="error-message">Email invalide.</small>
+        </div>
+        <div class="form-group">
+            <label for="mdp">Mot de passe *</label>
+            <input id="mdp" placeholder="Entrez votre mot de passe" type="password">
+            <small class="error-message">Mot de passe incorrect.</small>
+        </div>
+        <button class="btn" type="submit">Se connecter</button>
+    </form>
+    <p>Pas encore inscrit ? <a href="inscription.html">Inscrivez-vous ici</a>.</p>
+</div>
+<div class="notification" id="notification"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

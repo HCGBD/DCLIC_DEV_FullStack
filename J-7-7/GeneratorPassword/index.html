@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Génerateur de Password</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Générateur de Mots de Passe </h1>
+
+    <div class="password-display">
+        <span id="password-output"></span>
+        <button class="copy-btn" id="copy-btn">Copier</button>
+    </div>
+
+    <div class="controls">
+        <div class="control-group">
+            <label for="length-slider">
+                Longueur: <span class="length-value" id="length-value"></span>
+            </label>
+            <input type="range" id="length-slider" min="4" max="32" value="12">
+        </div>
+
+        <div class="control-group">
+            <label>Options:</label>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="uppercase" checked>
+                    <label for="uppercase">Majuscules (A-Z)</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="lowercase" checked>
+                    <label for="lowercase">Minuscules (a-z)</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="numbers" checked>
+                    <label for="numbers">Chiffres (0-9)</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="symbols" checked>
+                    <label for="symbols">Symboles (!@#$...)</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label>Force du mot de passe:</label>
+            <div class="strength-meter">
+                <div class="strength-bar" id="strength-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <button class="generate-btn" id="generate-btn">Générer un mot de passe</button>
+</div>
+
+<div class="notification" id="notification">Mot de passe copié!</div>
+
+<script src="./script.js"></script>
+</body>
+</html>
+
+

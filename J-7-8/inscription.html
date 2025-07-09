@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Inscription</h1>
+    <form id="formInscription" onsubmit="return validerInscription()">
+        <div class="form-group">
+            <label for="nom">Nom *</label>
+            <input type="text" id="nom" placeholder="Entrez votre nom">
+            <small class="error-message">Le nom doit contenir au moins 3 caractères.</small>
+        </div>
+        <div class="form-group">
+            <label for="prenom">Prénom *</label>
+            <input type="text" id="prenom" placeholder="Entrez votre prénom">
+            <small class="error-message">Le prénom doit contenir au moins 3 caractères.</small>
+        </div>
+        <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" placeholder="exemple@mail.com">
+            <small class="error-message">L'email n'est pas valide.</small>
+        </div>
+        <div class="form-group">
+            <label for="mdp">Mot de passe *</label>
+            <input type="password" id="mdp" placeholder="8 caractères minimum">
+            <small class="error-message">Le mot de passe doit contenir 8 caractères.</small>
+        </div>
+        <div class="form-group">
+            <label for="confirmerMdp">Confirmer le mot de passe *</label>
+            <input type="password" id="confirmerMdp" placeholder="Retapez votre mot de passe">
+            <small class="error-message">Les mots de passe ne correspondent pas.</small>
+        </div>
+        <button type="submit" class="btn">S'inscrire</button>
+    </form>
+    <p>Déjà inscrit ? <a href="connexion.html">Connectez-vous ici</a>.</p>
+</div>
+<div class="notification" id="notification"></div>
+<script src="script.js"></script>
+</body>
+</html>
