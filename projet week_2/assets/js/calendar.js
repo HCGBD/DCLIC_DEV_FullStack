@@ -115,6 +115,38 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  function bindDayClick() {
+    calendarDays.onclick = function (e) {
+      const dayDiv = e.target.closest(".calendar-day:not(.inactive)");
+      if (!dayDiv) return;
+      // Récupère le jour cliqué
+      const day = Number(dayDiv.textContent);
+      const month = currentDate.getMonth() + 1;
+      const year = currentDate.getFullYear();
+      const dateStr = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+      // Récupère les tâches du jour
+      let tasks = [];
+      try {
+        const allTasks = JSON.parse(localStorage.getItem("MesTaches")) || [];
+        tasks = allTasks.filter((t) => {
+          if (!t.createdAt) return false;
+          const taskDate = new Date(t.createdAt);
+          const taskDateStr = `${taskDate.getFullYear()}-${String(
+            taskDate.getMonth() + 1
+          ).padStart(2, "0")}-${String(taskDate.getDate()).padStart(2, "0")}`;
+          return taskDateStr === dateStr;
+        });
+      } catch (e) {}
+    if (window.app && window.app.ui && typeof window.app.ui.displayTasks === "function") {
+      window.app.ui.displayTasks(tasks);
+      if (tasks.length === 0) {
+        const container = document.querySelector('.taskList');
+        container.innerHTML = `<div style='display:flex;justify-content:center;align-items:center;height:120px;'><span style='font-size:1.2em;color:#ccc;'>Aucune tâche pour le ${day} ${monthNames[month-1]} ${year}</span></div>`;
+      }
+    }
+    };
+  }
+
   // Écouteurs d'événements pour les boutons de navigation
   prevMonthBtn.addEventListener("click", function () {
     currentDate = new Date(
@@ -123,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
       1
     );
     generateCalendar();
+    bindDayClick();
   });
 
   nextMonthBtn.addEventListener("click", function () {
@@ -132,6 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
       1
     );
     generateCalendar();
+    bindDayClick();
   });
 
   prevYearBtn.addEventListener("click", function () {
@@ -141,6 +175,7 @@ document.addEventListener("DOMContentLoaded", function () {
       1
     );
     generateCalendar();
+    bindDayClick();
   });
 
   nextYearBtn.addEventListener("click", function () {
@@ -150,8 +185,10 @@ document.addEventListener("DOMContentLoaded", function () {
       1
     );
     generateCalendar();
+    bindDayClick();
   });
 
   // Générer le calendrier initial
   generateCalendar();
+  bindDayClick();
 });

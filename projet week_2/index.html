@@ -19,16 +19,20 @@
           />
           <!-- <h1>Simplon Task</h1> -->
         </div>
-        <div class="search">
+        <div class="search" id="searchText">
           <input
             type="text"
-            placeholder="Entrer le nom ou la description ..."
+            placeholder="Entrer le nom ou la description Pour rechercher une taches ..."
           />
-          <button class="search">
+          <!-- <button class="search" id="searchBtn">
             <i class="fa-solid fa-magnifying-glass"></i>
+          </button> -->
+          <button class="search" id="ajoutBtn">
+            <i class="fas fa-plus"></i>
           </button>
         </div>
       </div>
+
       <div class="speech">
         <div class="gen">
           <div class="texte">
@@ -39,16 +43,18 @@
               s’organiser au quotidien.
             </p>
             <div class="categories">
-              <button>
-                <span class="nbre blue">10</span> Toutes Les taches
+              <button id="all-tasks">
+                <span class="nbre blue"></span> Toutes Les taches
               </button>
-              <button><span class="nbre blue">10</span> Taches en cours</button>
-              <button>
-                <span class="nbre blue">10+</span> Taches Terminer
+              <button id="in-progress">
+                <span class="nbre blueR"></span> Taches en cours
               </button>
-              <button><span class="nbre blue">10</span> Priorité haute</button>
+              <button id="completed-tasks">
+                <span class="nbre green"></span> Taches Terminer
+              </button>
+              <button id="high-priority"><span class="nbre red"></span> Priorité haute</button>
             </div>
-             <div class="ligne"></div>
+            <div class="ligne"></div>
           </div>
 
           <div class="calendar-container">
@@ -58,7 +64,7 @@
                 <button id="prev-month">&lt;</button>
               </div>
               <div class="calendar-title" id="current-month-year">
-                Janvier 2023
+                
               </div>
               <div class="calendar-nav">
                 <button id="next-month">&gt;</button>
@@ -82,13 +88,65 @@
           </div>
         </div>
       </div>
+
       <div class="taskList">
-        <div class="task"></div>
+
       </div>
+      <div id="day-tasks-container" style="margin: 30px 0 0 0;"></div>
+
       <div class="div4"></div>
+    </div>
+
+    <div class="containerModal">
+      <div class="modal">
+        <div class="modal_header">
+          <h1>Ajout de Taches</h1>
+          <button class="croi"><i class="fas fa-x"></i></button>
+        </div>
+
+        <form method="post" >
+          <div class="modal_content">
+            <div class="inp">
+              <label for="title">Titre de la tâche</label>
+              <input
+                type="text"
+                name="title"
+                id="title"
+                placeholder="Entrer le nom de la tâche"
+              />
+            </div>
+            <div class="inp">
+              <label for="descrip">Description de la tâche</label>
+              <textarea
+                name="descrip"
+                id="description"
+                cols="20"
+                rows="7"
+                placeholder="Description de la taches ....."
+              ></textarea>
+            </div>
+            <div class="inp">
+              <label for="priori">Priorité</label>
+              <select id="priority">
+                <option value="faible">Faible</option>
+                <option value="moyen" selected>Moyenne</option>
+                <option value="élévé">Haute</option>
+              </select>
+            </div>
+            <div class="inpB">
+              <button type="submit" class="ajouter" id="ajouter">
+                Ajouter
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
 
     <script src="./assets/font Awesone/js/all.min.js"></script>
     <script src="./assets/js/calendar.js"></script>
+    <script type="module" src="./assets/js/main.js"></script>
   </body>
 </html>
+
+

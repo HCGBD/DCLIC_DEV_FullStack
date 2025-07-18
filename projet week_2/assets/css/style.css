@@ -1,7 +1,7 @@
-@font-face {
+/* @font-face {
   font-family: "nok";
   src: url("../font/nok/nok.otf") format("truetype");
-}
+} */
 
 body {
   margin: 0;
@@ -25,9 +25,9 @@ body {
   align-items: center;
   padding-top: 0.4%;
   padding-bottom: 0.3%;
-  box-shadow: -3px 14px 117px 75px rgba(247, 247, 247, 0.75);
-  -webkit-box-shadow: -3px 14px 117px 75px rgba(247, 247, 247, 0.75);
-  -moz-box-shadow: -3px 14px 117px 75px rgba(247, 247, 247, 0.75);
+  box-shadow: -3px 14px 117px 75px rgba(247, 247, 247, 0.55);
+  -webkit-box-shadow: -3px 14px 117px 75px rgba(247, 247, 247, 0.55);
+  -moz-box-shadow: -3px 14px 117px 75px rgba(247, 247, 247, 0.55);
   position: fixed;
   top: 0;
   left: 0;
@@ -73,6 +73,19 @@ body {
   width: auto;
   margin-right: 20px;
   padding: 15px;
+/* Effet fluide pour le drag and drop des tâches */
+.task {
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.task.dragging {
+  box-shadow: 0 16px 40px rgba(0,0,0,0.28), 0 4px 12px rgba(0,0,0,0.18);
+  transform: scale(1.07) translateY(-12px) rotate(-2deg);
+  z-index: 20;
+}
+.task.over {
+  border: 2px dashed #00bcd4;
+  background: #23272e;
+}
   border-radius: 10px;
 }
 
@@ -89,6 +102,7 @@ body {
   /* border: 2px solid black; */
   margin-left: 25px;
   height: auto;
+  margin-bottom: 10px;
  
 }
 
@@ -107,12 +121,7 @@ body {
  /* 3 */
 
 
-.taskList {
-  grid-column: span 5 / span 5;
-  grid-row: span 2 / span 2;
-  grid-row-start: 4;
-  color: white;
-}
+
 
 .categories {
     display: flex;
@@ -131,7 +140,7 @@ body {
     /* border: 1px solid white; */
     padding: 5px;
     font-weight: bold;
-    box-shadow: -3px 14px 117px 75px rgba(247, 247, 247, 0.45);
+    box-shadow: -3px 14px 117px 75px rgba(247, 247, 247, 0.2);
     border-radius: 15px;
     display: flex;
     justify-content: center;
@@ -154,9 +163,20 @@ body {
 .blue {
     background-color: rgb(106, 106, 202);
 }
+.blueR {
+  background-color: rgb(12, 182, 233) ;
+}
+
+.green {
+  background-color: green;
+}
+
+.red {
+  background-color: red;
+}
 
 .categories button:hover{
-    background-color: rgb(104, 170, 104);
+    background-color: rgb(7, 238, 7);
     transition: background-color 0.6s ease-in-out;
 }
 
@@ -176,14 +196,202 @@ body {
 .ligne {
     margin-top: 20px;
     background-color: aliceblue;
-    width: 70vw;
+    width: 65vw;
     padding: 5px;
     
 }
+
+
+/* 4 */
+
+.taskList {
+  grid-column: span 5 / span 5;
+  grid-row: span 2 / span 2;
+  grid-row-start: 4;
+  color: white;
+  
+
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  border:  1px solid rgba(255, 255, 255,0.2);
+ 
+  margin-left: 2%;
+  margin-bottom: 0.5%;
+  margin-top: 0;
+  margin-right: 10%;
+  box-shadow: 4px 4px 20px rgba(243, 235, 235, 0.2);
+  /* background-color: #8b8e94; */
+  width:auto;
+  padding-top: 2px;
+  padding-bottom: 10px;
+  cursor: pointer;
+  
+}
+.task-details {
+  display: flex;
+  justify-content: flex-start;
+  width: max-content;
+  gap: 4px;
+  margin-left: 1.4%;
+
+
+
+  
+}
+
+.completed {
+  width: 2vw;
+}
+
+.contTask p , .contTask h1 {
+  display: flex;
+  margin: 0;
+ 
+}
+
+.contTask p {
+  opacity: 0.6;
+}
+
+.btn {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.btn button {
+  background-color: inherit;
+  font-size: 25px;
+  border-radius: 10px;
+  color: rgb(253, 247, 247);
+  border: none;
+
+
+
+}
+
+
+
+.modif {
+  color: rgb(11, 227, 235);
+}
+.sup {
+  color: red;
+  margin-right: 5px;
+}
+
+button {
+  transition: transform 0.2s ease-out;
+}
+
+button:active {
+  transform: translateY(7px);
+}
+
+/* modal */
+.containerModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+
+}
+
+.modal {
+  width: 50vw;
+  height: 100vh;
+ background-color: rgba(238, 238, 238, 0.90);
+ color: black;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  display: none;
+ 
+}
+.modal_header {
+  border-bottom: 1px solid black;
+  text-align: center;
+  height: max-content;
+   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 400px;
+  
+}
+
+.croi{
+  margin: 20px;
+  color: red;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+}
+
+
+.modal_header h1 {
+  height: max-content;
+  margin: 0;
+  margin-bottom: 25px;
+  margin-top: 10px;
+}
+
+.inp {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 5px;
+  margin: 2%;
+  margin-bottom: 20px;
+}
+
+.inp label {
+  font-size: x-large;
+  font-weight: bold;
+
+}
+.inp input , .inp textarea , .inp select {
+  padding: 12px;
+  font-size: large;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+
+
+
+
+.inpB{
+  display: flex;
+  justify-content: center;
+}
+
+.ajouter {
+  padding: 12px;
+  font-size: large;
+  font-weight: bold;
+  background-color: rgb(42, 179, 42);
+  width: 50%;
+  text-align: center;
+  color: white;
+  border-radius: 15px;
+  border: 1px solid  rgb(42, 179, 42);
+}
+
+
+
+
+
+
 
 .div4 {
   grid-column: span 5 / span 5;
   grid-row-start: 6;
   border: 2px solid black;
 }
-
