@@ -34,4 +34,4 @@ Ce projet ne nécessite aucune installation ni build.
 
 Pour vérifier que tout fonctionne correctement, vous pouvez lancer la suite de tests :
 
-1.  Ouvrez le fichier `pages/tests.html` dans votre navigateur.
+1.  Ouvrez le fichier `tests/tests.html` dans votre navigateur.
