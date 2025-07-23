@@ -33,6 +33,10 @@ document.addEventListener("DOMContentLoaded", function () {
   ];
 
   // Générer le calendrier
+  /**
+   * Génère l'affichage du calendrier pour le mois et l'année courants.
+   * Remplit les jours du calendrier, marque le jour actuel et affiche les événements.
+   */
   function generateCalendar() {
     // Effacer les jours précédents
     calendarDays.innerHTML = "";
@@ -115,6 +119,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  /**
+   * Ajoute un gestionnaire d'événement pour le clic sur un jour du calendrier.
+   * Affiche les tâches associées au jour sélectionné.
+   */
   function bindDayClick() {
     calendarDays.onclick = function (e) {
       const dayDiv = e.target.closest(".calendar-day:not(.inactive)");
@@ -123,7 +131,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const day = Number(dayDiv.textContent);
       const month = currentDate.getMonth() + 1;
       const year = currentDate.getFullYear();
-      const dateStr = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+      const dateStr = `${year}-${String(month).padStart(2, "0")}-${String(
+        day
+      ).padStart(2, "0")}`;
       // Récupère les tâches du jour
       let tasks = [];
       try {
@@ -137,17 +147,26 @@ document.addEventListener("DOMContentLoaded", function () {
           return taskDateStr === dateStr;
         });
       } catch (e) {}
-    if (window.app && window.app.ui && typeof window.app.ui.displayTasks === "function") {
-      window.app.ui.displayTasks(tasks);
-      if (tasks.length === 0) {
-        const container = document.querySelector('.taskList');
-        container.innerHTML = `<div style='display:flex;justify-content:center;align-items:center;height:120px;'><span style='font-size:1.2em;color:#ccc;'>Aucune tâche pour le ${day} ${monthNames[month-1]} ${year}</span></div>`;
+      if (
+        window.app &&
+        window.app.ui &&
+        typeof window.app.ui.displayTasks === "function"
+      ) {
+        window.app.ui.displayTasks(tasks);
+        if (tasks.length === 0) {
+          const container = document.querySelector(".taskList");
+          container.innerHTML = `<div style='display:flex;justify-content:center;align-items:center;height:120px;'><span style='font-size:1.2em;color:#ccc;'>Aucune tâche pour le ${day} ${
+            monthNames[month - 1]
+          } ${year}</span></div>`;
+        }
       }
-    }
     };
   }
 
   // Écouteurs d'événements pour les boutons de navigation
+  /**
+   * Revient au mois précédent et régénère le calendrier.
+   */
   prevMonthBtn.addEventListener("click", function () {
     currentDate = new Date(
       currentDate.getFullYear(),
@@ -158,6 +177,9 @@ document.addEventListener("DOMContentLoaded", function () {
     bindDayClick();
   });
 
+  /**
+   * Passe au mois suivant et régénère le calendrier.
+   */
   nextMonthBtn.addEventListener("click", function () {
     currentDate = new Date(
       currentDate.getFullYear(),
@@ -168,6 +190,9 @@ document.addEventListener("DOMContentLoaded", function () {
     bindDayClick();
   });
 
+  /**
+   * Revient à l'année précédente et régénère le calendrier.
+   */
   prevYearBtn.addEventListener("click", function () {
     currentDate = new Date(
       currentDate.getFullYear() - 1,
@@ -178,6 +203,9 @@ document.addEventListener("DOMContentLoaded", function () {
     bindDayClick();
   });
 
+  /**
+   * Passe à l'année suivante et régénère le calendrier.
+   */
   nextYearBtn.addEventListener("click", function () {
     currentDate = new Date(
       currentDate.getFullYear() + 1,

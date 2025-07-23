@@ -1,11 +1,13 @@
 "use strict";
+/**
+ * Représente une tâche individuelle.
+ * Contient les propriétés d'une tâche (id, titre, description, priorité, etc.).
+ */
 class Task {
-  constructor(
-    id,
-    title,
-    description,
-    priority = "moyen"
-  ) {
+  /**
+   * Initialise une nouvelle tâche avec ses propriétés.
+   */
+  constructor(id, title, description, priority = "moyen") {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -14,6 +16,5 @@ class Task {
     this.createdAt = new Date();
   }
 }
-
 
 export default Task;

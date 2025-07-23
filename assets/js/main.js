@@ -2,13 +2,23 @@ import Task from "./task.js";
 import TaskList from "./taskList.js";
 import UI from "./ui.js";
 
+/**
+ * Classe principale de l'application.
+ * Gère l'initialisation, l'ajout, la suppression et la modification des tâches.
+ */
 class App {
+  /**
+   * Initialise les instances de TaskList et UI.
+   */
   constructor() {
     this.TaskList = new TaskList();
     // Passe l'instance de TaskList à UI
     this.ui = new UI(this.TaskList);
   }
 
+  /**
+   * Initialise l'interface utilisateur et les événements principaux.
+   */
   init() {
     this.ui.displayTasks(this.TaskList.getAllTasks());
     // Add event listener for the add button
@@ -28,9 +38,11 @@ class App {
     console.log(this.TaskList.getTasksByCompletion(true));
 
     this.ui.bindCategoryEvents();
-
   }
 
+  /**
+   * Crée et ajoute une nouvelle tâche à la liste.
+   */
   addTask() {
     const title = this.ui.title.value;
     const description = this.ui.description.value;
@@ -45,17 +57,22 @@ class App {
     this.TaskList.addTask(task);
     this.ui.modal.style.display = "none";
     this.ui.form.reset();
-        this.ui.displayTasks(this.TaskList.getAllTasks()); // Refresh the task list display
-        this.ui.updateCategoryCounters();
+    this.ui.displayTasks(this.TaskList.getAllTasks()); // Refresh the task list display
+    this.ui.updateCategoryCounters();
   }
 
+  /**
+   * Supprime une tâche par son identifiant.
+   */
   deleteTask(id) {
     const task = this.TaskList.getTaskById(id);
     this.TaskList.deleteTask(task);
     this.displayTasks(this.TaskList.getAllTasks());
   }
 
-
+  /**
+   * Met à jour une tâche existante par son identifiant.
+   */
   updateTask(taskId) {
     const task = this.TaskList.getTaskById(taskId);
     if (task) {
@@ -71,9 +88,6 @@ class App {
   }
 }
 
-
 const app = new App();
 window.app = app;
 app.init();
-
-

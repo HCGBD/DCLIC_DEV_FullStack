@@ -1,7 +1,13 @@
 "use strict";
 import TaskList from "./taskList.js";
 
+/**
+ * Gère l'interface utilisateur de l'application (affichage, interactions, modals, recherche, etc.).
+ */
 class UI {
+  /**
+   * Initialise les éléments du DOM et les événements de l'UI.
+   */
   constructor(taskListInstance) {
     this.TaskList = taskListInstance;
     this.idd = 0;
@@ -38,20 +44,20 @@ class UI {
     });
   }
 
-  // ...existing code...
-
+  /**
+   * Affiche la liste des tâches dans le conteneur principal.
+   */
   displayTasks(tasks) {
     // console.log(this.TaskList);
 
     this.TaskContainer.innerHTML = ""; // Clear previous tasks
 
-
-tasks.forEach((task) => {
-  const taskDiv = document.createElement("div");
-  taskDiv.classList.add("task");
-  taskDiv.setAttribute("draggable", "true");
-  taskDiv.setAttribute("data-id", task.id);
-  taskDiv.innerHTML = `
+    tasks.forEach((task) => {
+      const taskDiv = document.createElement("div");
+      taskDiv.classList.add("task");
+      taskDiv.setAttribute("draggable", "true");
+      taskDiv.setAttribute("data-id", task.id);
+      taskDiv.innerHTML = `
     <div class="task-details">
       <input
         type="checkbox"
@@ -62,60 +68,65 @@ tasks.forEach((task) => {
       />
       <div class="prio"></div>
       <div class="contTask">
-        <h1 class="task-title" style="${task.completed ? 'text-decoration: line-through;' : ''}">${task.title}</h1>
-        <p class="task-desc" style="${task.completed ? 'text-decoration: line-through;' : ''}">
+        <h1 class="task-title" style="${
+          task.completed ? "text-decoration: line-through;" : ""
+        }">${task.title}</h1>
+        <p class="task-desc" style="${
+          task.completed ? "text-decoration: line-through;" : ""
+        }">
           ${task.description}
         </p>
       </div>
     </div>
     <div class="btn">
-      <button data-id="${task.id}" class="edit"><i class="fas fa-pen modif"></i></button>
-      <button data-id="${task.id}" class="delete"><i class="fa-solid fa-trash sup"></i></button>
+      <button data-id="${
+        task.id
+      }" class="edit"><i class="fas fa-pen modif"></i></button>
+      <button data-id="${
+        task.id
+      }" class="delete"><i class="fa-solid fa-trash sup"></i></button>
     </div>`;
-  this.TaskContainer.appendChild(taskDiv);
-});
+      this.TaskContainer.appendChild(taskDiv);
+    });
 
-
-// Drag and drop events
-let draggedId = null;
-const taskDivs = this.TaskContainer.querySelectorAll(".task");
-taskDivs.forEach(div => {
-  div.addEventListener("dragstart", (e) => {
-    draggedId = Number(div.getAttribute("data-id"));
-    e.dataTransfer.effectAllowed = "move";
-  });
-  div.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "move";
+    // Drag and drop events
+    let draggedId = null;
+    const taskDivs = this.TaskContainer.querySelectorAll(".task");
+    taskDivs.forEach((div) => {
+      div.addEventListener("dragstart", (e) => {
+        draggedId = Number(div.getAttribute("data-id"));
+        e.dataTransfer.effectAllowed = "move";
+      });
+      div.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "move";
         div.classList.add("dragging");
-  });
-  div.addEventListener("drop", (e) => {
+      });
+      div.addEventListener("drop", (e) => {
         div.classList.remove("dragging");
-    e.preventDefault();
-    const targetId = Number(div.getAttribute("data-id"));
-    if (draggedId !== null && draggedId !== targetId) {
-      const tasks = this.TaskList.getAllTasks();
-        div.classList.add("over");
-      const fromIndex = tasks.findIndex(t => t.id === draggedId);
-      const toIndex = tasks.findIndex(t => t.id === targetId);
-        div.classList.remove("over");
-      if (fromIndex !== -1 && toIndex !== -1) {
-        // Permute les tâches
-        const temp = tasks[fromIndex];
-        tasks[fromIndex] = tasks[toIndex];
-        tasks[toIndex] = temp;
-        // Sauvegarde et réaffiche
-        this.TaskList.tasks = tasks;
-        TaskList.saveTasks(tasks);
-        this.displayTasks(tasks);
-        this.updateCategoryCounters();
-      }
-    }
-    draggedId = null;
-  });
-});
-
-
+        e.preventDefault();
+        const targetId = Number(div.getAttribute("data-id"));
+        if (draggedId !== null && draggedId !== targetId) {
+          const tasks = this.TaskList.getAllTasks();
+          div.classList.add("over");
+          const fromIndex = tasks.findIndex((t) => t.id === draggedId);
+          const toIndex = tasks.findIndex((t) => t.id === targetId);
+          div.classList.remove("over");
+          if (fromIndex !== -1 && toIndex !== -1) {
+            // Permute les tâches
+            const temp = tasks[fromIndex];
+            tasks[fromIndex] = tasks[toIndex];
+            tasks[toIndex] = temp;
+            // Sauvegarde et réaffiche
+            this.TaskList.tasks = tasks;
+            TaskList.saveTasks(tasks);
+            this.displayTasks(tasks);
+            this.updateCategoryCounters();
+          }
+        }
+        draggedId = null;
+      });
+    });
 
     // Ajout de l'événement sur les cases à cocher
     const checkboxes = this.TaskContainer.querySelectorAll(".completed");
@@ -233,7 +244,9 @@ taskDivs.forEach(div => {
       }
     });
     highPriorityBtn.addEventListener("click", () => {
-      const tasks = this.TaskList.getAllTasks().filter((t) => t.priority === "élévé");
+      const tasks = this.TaskList.getAllTasks().filter(
+        (t) => t.priority === "élévé"
+      );
       if (tasks.length > 0) {
         this.displayTasks(tasks);
       } else {
@@ -252,9 +265,10 @@ taskDivs.forEach(div => {
       this.displayTasks(tasks);
       return;
     }
-    const filtered = tasks.filter(t =>
-      t.title.toLowerCase().includes(query) ||
-      t.description.toLowerCase().includes(query)
+    const filtered = tasks.filter(
+      (t) =>
+        t.title.toLowerCase().includes(query) ||
+        t.description.toLowerCase().includes(query)
     );
     if (filtered.length > 0) {
       this.displayTasks(filtered);
