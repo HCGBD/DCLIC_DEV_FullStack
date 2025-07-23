@@ -21,6 +21,13 @@ class UI {
 
     // Task Container
     this.TaskContainer = document.querySelector(".taskList");
+    // Barre de recherche
+    this.searchInput = document.querySelector("#searchText input");
+    if (this.searchInput) {
+      this.searchInput.addEventListener("input", () => {
+        this.handleSearch();
+      });
+    }
 
     this.openModalBtn.addEventListener("click", () => {
       this.modal.style.display = "block";
@@ -236,6 +243,24 @@ taskDivs.forEach(div => {
 
     updateCounters();
     window.addEventListener("storage", updateCounters);
+  }
+
+  handleSearch() {
+    const query = this.searchInput.value.trim().toLowerCase();
+    const tasks = this.TaskList.getAllTasks();
+    if (query === "") {
+      this.displayTasks(tasks);
+      return;
+    }
+    const filtered = tasks.filter(t =>
+      t.title.toLowerCase().includes(query) ||
+      t.description.toLowerCase().includes(query)
+    );
+    if (filtered.length > 0) {
+      this.displayTasks(filtered);
+    } else {
+      this.TaskContainer.innerHTML = `<div style='display:flex;justify-content:center;align-items:center;height:120px;'><span style='font-size:1.2em;color:#ccc;'>Aucune tâche trouvée</span></div>`;
+    }
   }
 }
 
