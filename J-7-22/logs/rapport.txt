@@ -1,0 +1,13 @@
+Utilisater : Mamadou Cire Diallo
+  
+    Version OS : Windows 11 Pro 
+
+    CPU  :  Intel(R) Core(TM) i7-6500U CPU @ 2.50GHz 
+
+    Nom  : HCGBD 
+
+    Mémoire libre : 1215 MB 
+
+    Temps de fonctionnement : 1837 minutes 
+
+
