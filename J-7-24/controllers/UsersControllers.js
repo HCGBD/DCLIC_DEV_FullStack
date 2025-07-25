@@ -47,6 +47,11 @@ async function read() {
     } catch (error) {
         console.error("Erreur lors de la lecture des utilisateurs:", error);
     }
+
+    while (true) {
+        console.log("yy");
+        
+    }
 }
 
 /**
